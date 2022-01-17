@@ -1,0 +1,6 @@
+framework module Pods_AvailableVehiclesChallenge_AvailableVehiclesChallengeUITests {
+  umbrella header "Pods-AvailableVehiclesChallenge-AvailableVehiclesChallengeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
