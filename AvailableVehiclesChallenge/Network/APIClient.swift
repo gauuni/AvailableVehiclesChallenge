@@ -9,6 +9,16 @@ import Moya
 import RxSwift
 import ObjectMapper
 
+func JSONResponseDataFormatter(_ data: Data) -> String {
+    do {
+        let dataAsJSON = try JSONSerialization.jsonObject(with: data)
+        let prettyData = try JSONSerialization.data(withJSONObject: dataAsJSON, options: .prettyPrinted)
+        return String(data: prettyData, encoding: .utf8) ?? String(data: data, encoding: .utf8) ?? "do null"
+    } catch {
+        return String(data: data, encoding: .utf8) ?? "catch null"
+    }
+}
+
 fileprivate struct Endpoints{
     static let baseURL = "https://findfalcone.herokuapp.com/"
     static let token = "token"
@@ -20,8 +30,8 @@ fileprivate struct Endpoints{
 struct APIFindParam: Mappable{
     
     var token: String!
-    var planets: [PlanetReponse]!
-    var vehicles: [VehicleReponse]!
+    var planets: [PlanetResponse]!
+    var vehicles: [VehicleResponse]!
     
     init?(map: Map) { }
     
@@ -33,9 +43,9 @@ struct APIFindParam: Mappable{
 }
 
 enum API {
-    case token
-    case planets
-    case vehicles
+    case fetchToken
+    case fetchPlanets
+    case fetchVehicles
     case find(param: APIFindParam)
 }
 
@@ -46,11 +56,11 @@ extension API: TargetType {
     
     var path: String {
         switch self {
-        case .token:
+        case .fetchToken:
             return Endpoints.token
-        case .planets:
+        case .fetchPlanets:
             return Endpoints.planets
-        case .vehicles:
+        case .fetchVehicles:
             return Endpoints.vehicles
         case .find:
             return Endpoints.find
@@ -59,13 +69,12 @@ extension API: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .find, .token:
+        case .find, .fetchToken:
             return .post
         default:
             return .get
         }
     }
-    
     
     var task: Task {
         switch self {
@@ -86,11 +95,70 @@ extension API: TargetType {
         }
         return headers
     }
-    
-
 }
 
 
 class APIClient{
+    private let scheduler: ConcurrentDispatchQueueScheduler
     
+    init() {
+        self.scheduler = ConcurrentDispatchQueueScheduler(
+            qos: DispatchQoS(qosClass: DispatchQoS.QoSClass.background,
+                             relativePriority: 1)
+        )
+    }
+    
+    private var provider: MoyaProvider<API> = {
+        let curlPlugin = NetworkLoggerPlugin(
+            configuration: .init(
+                                 logOptions: .formatRequestAscURL
+            )
+        )
+        
+        let bodyPlugin = NetworkLoggerPlugin(
+            configuration: .init(
+                                 logOptions: .successResponseBody
+            )
+        )
+        
+        let errorPlugin = NetworkLoggerPlugin(
+            configuration: .init(formatter: .init(responseData: JSONResponseDataFormatter),
+                                 logOptions: .errorResponseBody
+            )
+        )
+        let provider = MoyaProvider<API>(plugins: [curlPlugin, bodyPlugin, errorPlugin])
+        return provider
+    }()
+    
+    private func request(target: API) -> Observable<Response>{
+        return self.provider.rx
+            .request(target)
+            .retry(1)
+            .observe(on: scheduler)
+            .asObservable()
+    }
+}
+
+extension APIClient{
+    func fetchToken() -> Observable<TokenResponse>{
+        return request(target: .fetchToken)
+            .mapObject(TokenResponse.self)
+    }
+    
+    func fetchPlanets() -> Observable<[PlanetResponse]>{
+        return request(target: .fetchPlanets)
+            .mapArray(PlanetResponse.self)
+    }
+    
+    func fetchVehicles() -> Observable<[VehicleResponse]>{
+        return request(target: .fetchVehicles)
+            .mapArray(VehicleResponse.self)
+    }
+    
+    func fetchFind(param: APIFindParam) -> Observable<FindResponse>{
+        request(target: .fetchVehicles)
+            .mapObject(FindResponse.self)
+    }
+
+
 }

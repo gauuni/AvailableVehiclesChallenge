@@ -19,7 +19,7 @@ class BaseResponse: Mappable{
     
 }
 
-class TokenReponse: BaseResponse{
+class TokenResponse: BaseResponse{
     var token: String?
     
     override func mapping(map: Map) {
@@ -28,7 +28,7 @@ class TokenReponse: BaseResponse{
     }
 }
 
-class VehicleReponse: BaseResponse{
+class VehicleResponse: BaseResponse{
     var name: String?
     var units: Int = 0
     var maxDistance = 0
@@ -43,7 +43,7 @@ class VehicleReponse: BaseResponse{
     }
 }
 
-class PlanetReponse: BaseResponse{
+class PlanetResponse: BaseResponse{
     var name: String?
     var distance = 0
     
@@ -54,3 +54,13 @@ class PlanetReponse: BaseResponse{
     }
 }
 
+class FindResponse: BaseResponse{
+    var planetName: String?
+    var status: String?
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        planetName <- map["plant_name"]
+        status <- map["status"]
+    }
+}

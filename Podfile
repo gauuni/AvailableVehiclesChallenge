@@ -8,7 +8,7 @@ target 'AvailableVehiclesChallenge' do
   # Pods for AvailableVehiclesChallenge
   pod 'SnapKit'
   pod 'Moya/RxSwift'
-  pod 'Moya-ObjectMapper/RxSwift'
+  pod 'ObjectMapper'
   
   target 'AvailableVehiclesChallengeTests' do
     inherit! :search_paths
