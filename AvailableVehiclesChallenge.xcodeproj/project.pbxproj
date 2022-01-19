@@ -11,6 +11,7 @@
 		79984757F1EDB3266160270D /* Pods_AvailableVehiclesChallenge_AvailableVehiclesChallengeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4F1FE0A794E70A636BAE97 /* Pods_AvailableVehiclesChallenge_AvailableVehiclesChallengeUITests.framework */; };
 		C9670030D32B6D40F287B621 /* Pods_AvailableVehiclesChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC3A000B5C7C81BE86DE2AC /* Pods_AvailableVehiclesChallenge.framework */; };
 		CB5CC1412797A2C400C388A7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5CC1402797A2C400C388A7 /* APIClient.swift */; };
+		CB5CC1432797A8F200C388A7 /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5CC1422797A8F200C388A7 /* Responses.swift */; };
 		CBAEE45E2795AFAB003E5FA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE45D2795AFAB003E5FA3 /* AppDelegate.swift */; };
 		CBAEE4602795AFAB003E5FA3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE45F2795AFAB003E5FA3 /* SceneDelegate.swift */; };
 		CBAEE4622795AFAB003E5FA3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4612795AFAB003E5FA3 /* RootViewController.swift */; };
@@ -19,7 +20,6 @@
 		CBAEE46A2795AFAC003E5FA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBAEE4682795AFAC003E5FA3 /* LaunchScreen.storyboard */; };
 		CBAEE4752795AFAD003E5FA3 /* AvailableVehiclesChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4742795AFAD003E5FA3 /* AvailableVehiclesChallengeTests.swift */; };
 		CBAEE4802795AFAD003E5FA3 /* AvailableVehiclesChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE47F2795AFAD003E5FA3 /* AvailableVehiclesChallengeUITests.swift */; };
-		CBAEE4912795B029003E5FA3 /* BaseVehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4902795B029003E5FA3 /* BaseVehicles.swift */; };
 		CBAEE4972795B470003E5FA3 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4962795B470003E5FA3 /* BaseNavigationController.swift */; };
 		CBAEE49F2795B47D003E5FA3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE49E2795B47D003E5FA3 /* BaseViewController.swift */; };
 		CBAEE4A42795B4EF003E5FA3 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4A32795B4EF003E5FA3 /* RootNavigationController.swift */; };
@@ -52,6 +52,7 @@
 		BB37FBBBE083B461F4EC72A6 /* Pods-AvailableVehiclesChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvailableVehiclesChallenge.release.xcconfig"; path = "Target Support Files/Pods-AvailableVehiclesChallenge/Pods-AvailableVehiclesChallenge.release.xcconfig"; sourceTree = "<group>"; };
 		BCB25C9D34203E882B3E0360 /* Pods-AvailableVehiclesChallenge-AvailableVehiclesChallengeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvailableVehiclesChallenge-AvailableVehiclesChallengeUITests.release.xcconfig"; path = "Target Support Files/Pods-AvailableVehiclesChallenge-AvailableVehiclesChallengeUITests/Pods-AvailableVehiclesChallenge-AvailableVehiclesChallengeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CB5CC1402797A2C400C388A7 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		CB5CC1422797A8F200C388A7 /* Responses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responses.swift; sourceTree = "<group>"; };
 		CBAEE45A2795AFAB003E5FA3 /* AvailableVehiclesChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvailableVehiclesChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAEE45D2795AFAB003E5FA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBAEE45F2795AFAB003E5FA3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		CBAEE47B2795AFAD003E5FA3 /* AvailableVehiclesChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvailableVehiclesChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAEE47F2795AFAD003E5FA3 /* AvailableVehiclesChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableVehiclesChallengeUITests.swift; sourceTree = "<group>"; };
 		CBAEE4812795AFAD003E5FA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBAEE4902795B029003E5FA3 /* BaseVehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseVehicles.swift; path = Models/BaseVehicles.swift; sourceTree = "<group>"; };
 		CBAEE4962795B470003E5FA3 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		CBAEE49E2795B47D003E5FA3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CBAEE4A32795B4EF003E5FA3 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
@@ -128,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				CB5CC1402797A2C400C388A7 /* APIClient.swift */,
+				CB5CC1422797A8F200C388A7 /* Responses.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -167,7 +168,6 @@
 				CBAEE4662795AFAC003E5FA3 /* Assets.xcassets */,
 				CBAEE4682795AFAC003E5FA3 /* LaunchScreen.storyboard */,
 				CBAEE46B2795AFAC003E5FA3 /* Info.plist */,
-				CBAEE4902795B029003E5FA3 /* BaseVehicles.swift */,
 			);
 			path = AvailableVehiclesChallenge;
 			sourceTree = "<group>";
@@ -437,11 +437,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB5CC1432797A8F200C388A7 /* Responses.swift in Sources */,
 				CBAEE4622795AFAB003E5FA3 /* RootViewController.swift in Sources */,
 				CBAEE45E2795AFAB003E5FA3 /* AppDelegate.swift in Sources */,
 				CBAEE4602795AFAB003E5FA3 /* SceneDelegate.swift in Sources */,
 				CBAEE4972795B470003E5FA3 /* BaseNavigationController.swift in Sources */,
-				CBAEE4912795B029003E5FA3 /* BaseVehicles.swift in Sources */,
 				CBAEE4A42795B4EF003E5FA3 /* RootNavigationController.swift in Sources */,
 				CB5CC1412797A2C400C388A7 /* APIClient.swift in Sources */,
 				CBAEE49F2795B47D003E5FA3 /* BaseViewController.swift in Sources */,

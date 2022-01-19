@@ -20,15 +20,15 @@ fileprivate struct Endpoints{
 struct APIFindParam: Mappable{
     
     var token: String!
-    var planets: [String]!
-    var vehicles: [String]!
+    var planets: [PlanetReponse]!
+    var vehicles: [VehicleReponse]!
     
     init?(map: Map) { }
     
     mutating func mapping(map: Map) {
-        token <- map["token"]
-        planets <- map["planet_names"]
-        vehicles <- map["vehicle_names"]
+        token  >>> map["token"]
+        planets.filter{ $0.name != nil }.map{ $0.name! } >>> map["planet_names"]
+        vehicles.filter{ $0.name != nil }.map{ $0.name! } >>> map["vehicle_names"]
     }
 }
 
@@ -70,7 +70,7 @@ extension API: TargetType {
     var task: Task {
         switch self {
         case .find(let param):
-            return .requestPlain
+            return .requestParameters(parameters: param.toJSON(), encoding: JSONEncoding.default)
         default:
             return .requestPlain
         }
