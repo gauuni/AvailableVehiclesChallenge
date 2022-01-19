@@ -9,4 +9,7 @@ import Foundation
 
 class MainModel: BaseModel{
     
+    var planets: [Planet]!
+    var vehicles: [Vehicle]!
+    
 }

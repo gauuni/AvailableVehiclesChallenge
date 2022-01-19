@@ -12,17 +12,11 @@ class BaseViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     
-    var model: BaseModel!
-    var viewModel: BaseViewModel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-    func setup(model: BaseModel, viewModel: BaseViewModel){
-        self.model = model
-        self.viewModel = viewModel
-    }
+
 }

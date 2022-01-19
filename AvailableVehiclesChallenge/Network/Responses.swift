@@ -22,6 +22,10 @@ class BaseResponse: Mappable{
 class TokenResponse: BaseResponse{
     var token: String?
     
+    
+}
+
+extension TokenResponse {
     override func mapping(map: Map) {
         super.mapping(map: map)
         token <- map["token"]

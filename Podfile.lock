@@ -6,6 +6,7 @@ PODS:
     - Moya/Core
     - RxSwift (~> 6.0)
   - ObjectMapper (4.2.0)
+  - PanModal (1.2.7)
   - RxSwift (6.2.0)
   - SnapKit (5.0.1)
   - SwiftyExtension (1.3.0)
@@ -13,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - Moya/RxSwift
   - ObjectMapper
+  - PanModal
   - SnapKit
   - SwiftyExtension
 
@@ -21,6 +23,7 @@ SPEC REPOS:
     - Alamofire
     - Moya
     - ObjectMapper
+    - PanModal
     - RxSwift
     - SnapKit
     - SwiftyExtension
@@ -29,10 +32,11 @@ SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyExtension: 2b730502f7d16d07685e2a276081bf507b2e585c
 
-PODFILE CHECKSUM: ba804ce65fafc72f511cae5f4ce8f539fd66618a
+PODFILE CHECKSUM: fd6b4e17e0a5d67150db46948d2e2668534025ab
 
 COCOAPODS: 1.10.1

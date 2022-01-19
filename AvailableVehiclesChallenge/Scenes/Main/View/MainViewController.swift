@@ -42,6 +42,10 @@ class MainViewController: BaseViewController {
         return button
     }()
     
+    private lazy var mainViewModel: MainViewModel = {
+        return MainViewModel()
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -83,10 +87,6 @@ class MainViewController: BaseViewController {
             $0.centerX.width.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         self.title = "Finding Falcone!"
         
@@ -97,6 +97,12 @@ class MainViewController: BaseViewController {
         tableView.delegate = self
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
         
     }
     
@@ -107,9 +113,7 @@ class MainViewController: BaseViewController {
 }
 
 private extension MainViewController{
-    var mainViewModel: MainViewModel{
-        return self.viewModel as! MainViewModel
-    }
+    
 }
 
 // MARK: - UITableViewDataSource

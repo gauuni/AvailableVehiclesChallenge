@@ -8,5 +8,7 @@
 import Foundation
 
 class BaseViewModel{
+    let disposeBag = DisposeBag()
+    
     public let network = APIClient()
 }

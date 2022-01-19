@@ -18,6 +18,7 @@
 		CB5F5CF82797CC120035E6D2 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F5CF72797CC120035E6D2 /* MainViewModel.swift */; };
 		CB5F5CFA2797CC1C0035E6D2 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F5CF92797CC1C0035E6D2 /* MainModel.swift */; };
 		CB8C4C652798500F00268420 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8C4C642798500F00268420 /* BaseTableViewCell.swift */; };
+		CB8C4C67279861C000268420 /* PanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8C4C66279861C000268420 /* PanViewController.swift */; };
 		CBAEE45E2795AFAB003E5FA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE45D2795AFAB003E5FA3 /* AppDelegate.swift */; };
 		CBAEE4602795AFAB003E5FA3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE45F2795AFAB003E5FA3 /* SceneDelegate.swift */; };
 		CBAEE4622795AFAB003E5FA3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4612795AFAB003E5FA3 /* MainViewController.swift */; };
@@ -68,6 +69,7 @@
 		CB5F5CF72797CC120035E6D2 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		CB5F5CF92797CC1C0035E6D2 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		CB8C4C642798500F00268420 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		CB8C4C66279861C000268420 /* PanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanViewController.swift; sourceTree = "<group>"; };
 		CBAEE45A2795AFAB003E5FA3 /* AvailableVehiclesChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvailableVehiclesChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAEE45D2795AFAB003E5FA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBAEE45F2795AFAB003E5FA3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			children = (
 				CBAEE4612795AFAB003E5FA3 /* MainViewController.swift */,
 				CBD4E7F227984A140008C020 /* MainCell.swift */,
+				CB8C4C66279861C000268420 /* PanViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				CBAEE45E2795AFAB003E5FA3 /* AppDelegate.swift in Sources */,
 				CBAEE4602795AFAB003E5FA3 /* SceneDelegate.swift in Sources */,
 				CBAEE4972795B470003E5FA3 /* BaseNavigationController.swift in Sources */,
+				CB8C4C67279861C000268420 /* PanViewController.swift in Sources */,
 				CBAEE4A42795B4EF003E5FA3 /* RootNavigationController.swift in Sources */,
 				CB5CC1582797BAB900C388A7 /* Single+ObjectMapper.swift in Sources */,
 				CBD4E7F1279845FE0008C020 /* BaseViewModel.swift in Sources */,

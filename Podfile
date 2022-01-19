@@ -10,6 +10,7 @@ target 'AvailableVehiclesChallenge' do
   pod 'Moya/RxSwift'
   pod 'ObjectMapper'
   pod 'SwiftyExtension'
+  pod 'PanModal'
   
   target 'AvailableVehiclesChallengeTests' do
     inherit! :search_paths
