@@ -30,8 +30,8 @@ fileprivate struct Endpoints{
 struct APIFindParam: Mappable{
     
     var token: String!
-    var planets: [PlanetResponse]!
-    var vehicles: [VehicleResponse]!
+    var planets: [Planet]!
+    var vehicles: [Vehicle]!
     
     init?(map: Map) { }
     
@@ -145,19 +145,19 @@ extension APIClient{
             .mapObject(TokenResponse.self)
     }
     
-    func fetchPlanets() -> Observable<[PlanetResponse]>{
+    func fetchPlanets() -> Observable<[Planet]>{
         return request(target: .fetchPlanets)
-            .mapArray(PlanetResponse.self)
+            .mapArray(Planet.self)
     }
     
-    func fetchVehicles() -> Observable<[VehicleResponse]>{
+    func fetchVehicles() -> Observable<[Vehicle]>{
         return request(target: .fetchVehicles)
-            .mapArray(VehicleResponse.self)
+            .mapArray(Vehicle.self)
     }
     
-    func fetchFind(param: APIFindParam) -> Observable<FindResponse>{
+    func fetchFind(param: APIFindParam) -> Observable<FindResult>{
         request(target: .fetchVehicles)
-            .mapObject(FindResponse.self)
+            .mapObject(FindResult.self)
     }
 
 

@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+class MainViewModel: BaseViewModel{
+
+//    network.fetchToken()
+//        .subscribe()
+//        .disposed(by: disposeBag)
+//    network.fetchVehicles()
+//        .subscribe()
+//        .disposed(by: disposeBag)
+//    network.fetchPlanets()
+//        .subscribe()
+//        .disposed(by: disposeBag)
+}

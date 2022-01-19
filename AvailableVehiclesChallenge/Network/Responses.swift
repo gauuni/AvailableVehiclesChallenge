@@ -28,7 +28,7 @@ class TokenResponse: BaseResponse{
     }
 }
 
-class VehicleResponse: BaseResponse{
+class Vehicle: BaseResponse{
     var name: String?
     var units: Int = 0
     var maxDistance = 0
@@ -43,7 +43,7 @@ class VehicleResponse: BaseResponse{
     }
 }
 
-class PlanetResponse: BaseResponse{
+class Planet: BaseResponse{
     var name: String?
     var distance = 0
     
@@ -54,7 +54,7 @@ class PlanetResponse: BaseResponse{
     }
 }
 
-class FindResponse: BaseResponse{
+class FindResult: BaseResponse{
     var planetName: String?
     var status: String?
     
