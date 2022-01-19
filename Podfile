@@ -6,8 +6,10 @@ target 'AvailableVehiclesChallenge' do
   use_frameworks!
 
   # Pods for AvailableVehiclesChallenge
-pod 'SnapKit'
-
+  pod 'SnapKit'
+  pod 'Moya/RxSwift'
+  pod 'Moya-ObjectMapper/RxSwift'
+  
   target 'AvailableVehiclesChallengeTests' do
     inherit! :search_paths
     # Pods for testing
