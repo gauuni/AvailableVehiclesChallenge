@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (5.4.4)
+  - IGListDiffKit (4.0.0)
+  - IGListKit (4.0.0):
+    - IGListDiffKit (= 4.0.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
@@ -12,6 +15,7 @@ PODS:
   - SwiftyExtension (1.3.0)
 
 DEPENDENCIES:
+  - IGListKit
   - Moya/RxSwift
   - ObjectMapper
   - PanModal
@@ -21,6 +25,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - IGListDiffKit
+    - IGListKit
     - Moya
     - ObjectMapper
     - PanModal
@@ -30,6 +36,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
+  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
@@ -37,6 +45,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyExtension: 2b730502f7d16d07685e2a276081bf507b2e585c
 
-PODFILE CHECKSUM: fd6b4e17e0a5d67150db46948d2e2668534025ab
+PODFILE CHECKSUM: 89bdb67a6e0efbf022ea7ef9392d48e810f6c973
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

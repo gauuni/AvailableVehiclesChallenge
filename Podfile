@@ -11,6 +11,7 @@ target 'AvailableVehiclesChallenge' do
   pod 'ObjectMapper'
   pod 'SwiftyExtension'
   pod 'PanModal'
+  pod 'IGListKit'
   
   target 'AvailableVehiclesChallengeTests' do
     inherit! :search_paths

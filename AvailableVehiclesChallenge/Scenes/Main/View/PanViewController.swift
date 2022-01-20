@@ -7,6 +7,7 @@
 
 import UIKit
 import PanModal
+import RxSwift
 
 class PanViewController: UITableViewController, PanModalPresentable {
 
@@ -23,7 +24,9 @@ class PanViewController: UITableViewController, PanModalPresentable {
     }
     
     var items: [Any]!
-    
+    var selectedItem: Any?
+    let pSelected = PublishSubject<Any?>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,25 +45,50 @@ class PanViewController: UITableViewController, PanModalPresentable {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "Cell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-//
-//        if cell == nil{
-//            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
-//        }
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
 
+        if cell == nil{
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
+        }
+
+        cell?.accessoryType = .none
+        
         if let item = items[indexPath.row] as? Planet{
-            cell.textLabel?.text = item.name
+            cell?.textLabel?.text = item.name
+            
+            if let selectedItem = self.selectedItem{
+                if let planet = selectedItem as? Planet,
+                    item.name == planet.name{
+                    cell?.accessoryType = .checkmark
+                }
+            }
         }
         
         if let item = items[indexPath.row] as? Vehicle,
         let name = item.name{
-            cell.textLabel?.text = String(format: "%@ (%i)", name, item.units)
+            cell?.textLabel?.text = String(format: "%@ (%i)", name, item.units)
+            if let vehicle = selectedItem as? Vehicle,
+                item.name == vehicle.name{
+                cell?.accessoryType = .checkmark
+            }
         }
         
-        return cell
+        return cell!
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let item = items[indexPath.row]
+        pSelected.onNext(item)
+        pSelected.onCompleted()
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func panModalWillDismiss() {
+        pSelected.onNext(nil)
+        pSelected.onCompleted()
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

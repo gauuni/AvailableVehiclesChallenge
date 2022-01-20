@@ -9,11 +9,11 @@ import UIKit
 import RxSwift
 import SnapKit
 import SwiftyExtension
+import PanModal
+import IGListKit
 
 class MainViewController: BaseViewController {
 
-    let numberOfPlanets = 4
-    
     private let lblTitle: UILabel = {
         let label = UILabel()
         label.text = "Select planets you want to search in"
@@ -21,11 +21,16 @@ class MainViewController: BaseViewController {
         label.numberOfLines = 0
         return label
     }()
+
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 5)
+    }()
     
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(MainCell.self, forCellReuseIdentifier: "MainCell")
-        return tableView
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .white
+        collectionView.alwaysBounceVertical = true
+        return collectionView
     }()
     
     private let lblTime: UILabel = {
@@ -42,6 +47,8 @@ class MainViewController: BaseViewController {
         return button
     }()
     
+    var dataSource = [Destination]()
+    
     private lazy var mainViewModel: MainViewModel = {
         return MainViewModel()
     }()
@@ -56,8 +63,8 @@ class MainViewController: BaseViewController {
             $0.width.equalToSuperview().offset(-32)
         }
         
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints{
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints{
             $0.top.equalTo(lblTitle.snp.bottom).offset(16)
             $0.centerX.width.equalTo(lblTitle)
         }
@@ -83,7 +90,7 @@ class MainViewController: BaseViewController {
         
         view.addSubview(viewContainer)
         viewContainer.snp.makeConstraints{
-            $0.top.equalTo(tableView.snp.bottom).offset(16)
+            $0.top.equalTo(collectionView.snp.bottom).offset(16)
             $0.centerX.width.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -92,22 +99,48 @@ class MainViewController: BaseViewController {
         
         let rightBarBtn = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetPressed))
         self.navigationItem.rightBarButtonItem = rightBarBtn
+
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+
+        mainViewModel.obsDataSourceChanged
+            .asObserver()
+            .subscribe(onNext: { [weak self] datasource in
+                self?.dataSource = datasource
+                self?.adapter.performUpdates(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 44
-        tableView.rowHeight = UITableView.automaticDimension
+        mainViewModel.obsTimeChange
+            .asObserver()
+            .subscribe(onNext: { [weak self] time in
+                self?.lblTime.text = String(format: "Time taken: %i", time)
+            })
+            .disposed(by: disposeBag)
+        
+        mainViewModel.initializeData()
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ProgressHUD.animationType = .circleStrokeSpin
+        ProgressHUD.show(interaction: false)
+        mainViewModel.loadingResources()
+        .observe(on: MainScheduler.instance)
+        .subscribe(onNext: {
+            ProgressHUD.dismiss()
+        }, onError: { error in
+            ProgressHUD.showFailed(error.localizedDescription)
+        })
+        .disposed(by: disposeBag)
         
         
     }
     
     @IBAction private func resetPressed(){
-        
+        mainViewModel.reset()  
     }
 
 }
@@ -116,24 +149,55 @@ private extension MainViewController{
     
 }
 
-// MARK: - UITableViewDataSource
-extension MainViewController: UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfPlanets
+extension MainViewController: ListAdapterDataSource{
+
+    // MARK: ListAdapterDataSource
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return dataSource as [ListDiffable]
+    }
+
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        
+        let sectionController = MainSectionController()
+        sectionController.delegate = self
+        return sectionController
+        
+    }
+
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(cellClass: MainCell.self) as! MainCell
-        let data = MainCellData("Destination \(indexPath.row+1)", nil, nil)
-        cell.data = data
-        return cell
-    }
 }
 
-// MARK: - UITableViewDelegate
-extension MainViewController: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension MainViewController: MainSectionControllerDelegate{
+    func mainSectionController(_ sectionController: MainSectionController, didSelect type: ListType) {
+        let section = adapter.section(for: sectionController)
+        presentList(type: type, at: section)
+    }
+    
+    func presentList(type: ListType, at index: Int){
+        let vc = PanViewController()
         
+        switch type{
+        case .vehicle:
+            vc.selectedItem = mainViewModel.detinations[index].vehicle
+            vc.items = mainViewModel.vehicles
+        case .planet:
+            vc.selectedItem = mainViewModel.detinations[index].planet
+            vc.items = mainViewModel.planets
+        }
+
+        vc.pSelected.asObserver()
+            .subscribe(onNext: { [weak self] item in
+                guard let item = item
+                else{
+                    return
+                }
+                self?.mainViewModel.update(item: item, at: index)
+            })
+            .disposed(by: disposeBag)
+        self.presentPanModal(vc)
     }
 }
 

@@ -7,6 +7,7 @@
 
 
 import ObjectMapper
+import IGListDiffKit
 
 class BaseResponse: Mappable{
     var error: String?
@@ -22,17 +23,14 @@ class BaseResponse: Mappable{
 class TokenResponse: BaseResponse{
     var token: String?
     
-    
-}
-
-extension TokenResponse {
     override func mapping(map: Map) {
         super.mapping(map: map)
         token <- map["token"]
     }
 }
 
-class Vehicle: BaseResponse{
+class Vehicle: BaseResponse, Equatable{
+    
     var name: String?
     var units: Int = 0
     var maxDistance = 0
@@ -45,9 +43,14 @@ class Vehicle: BaseResponse{
         maxDistance <- map["max_distance"]
         speed <- map["speed"]
     }
+    
+    static func == (lhs: Vehicle, rhs: Vehicle) -> Bool {
+        return lhs.name == rhs.name
+    }
+
 }
 
-class Planet: BaseResponse{
+class Planet: BaseResponse, Equatable{
     var name: String?
     var distance = 0
     
@@ -56,6 +59,11 @@ class Planet: BaseResponse{
         name <- map["name"]
         distance <- map["distance"]
     }
+
+    static func == (lhs: Planet, rhs: Planet) -> Bool {
+        return lhs.name == rhs.name
+    }
+    
 }
 
 class FindResult: BaseResponse{

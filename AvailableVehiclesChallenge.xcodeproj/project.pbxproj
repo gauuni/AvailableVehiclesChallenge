@@ -17,6 +17,8 @@
 		CB5CC1582797BAB900C388A7 /* Single+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5CC1552797BAB800C388A7 /* Single+ObjectMapper.swift */; };
 		CB5F5CF82797CC120035E6D2 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F5CF72797CC120035E6D2 /* MainViewModel.swift */; };
 		CB5F5CFA2797CC1C0035E6D2 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F5CF92797CC1C0035E6D2 /* MainModel.swift */; };
+		CB5F5D07279914270035E6D2 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F5D06279914270035E6D2 /* ProgressHUD.swift */; };
+		CB5F5D0927991DB30035E6D2 /* MainSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5F5D0827991DB30035E6D2 /* MainSectionController.swift */; };
 		CB8C4C652798500F00268420 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8C4C642798500F00268420 /* BaseTableViewCell.swift */; };
 		CB8C4C67279861C000268420 /* PanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8C4C66279861C000268420 /* PanViewController.swift */; };
 		CBAEE45E2795AFAB003E5FA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE45D2795AFAB003E5FA3 /* AppDelegate.swift */; };
@@ -68,6 +70,8 @@
 		CB5CC1552797BAB800C388A7 /* Single+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Single+ObjectMapper.swift"; sourceTree = "<group>"; };
 		CB5F5CF72797CC120035E6D2 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		CB5F5CF92797CC1C0035E6D2 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		CB5F5D06279914270035E6D2 /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		CB5F5D0827991DB30035E6D2 /* MainSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionController.swift; sourceTree = "<group>"; };
 		CB8C4C642798500F00268420 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		CB8C4C66279861C000268420 /* PanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanViewController.swift; sourceTree = "<group>"; };
 		CBAEE45A2795AFAB003E5FA3 /* AvailableVehiclesChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvailableVehiclesChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +199,7 @@
 				CBAEE4612795AFAB003E5FA3 /* MainViewController.swift */,
 				CBD4E7F227984A140008C020 /* MainCell.swift */,
 				CB8C4C66279861C000268420 /* PanViewController.swift */,
+				CB5F5D0827991DB30035E6D2 /* MainSectionController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				CB5CC1502797BAB800C388A7 /* Moya-ObjectMapper */,
+				CB5F5D06279914270035E6D2 /* ProgressHUD.swift */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -243,13 +249,6 @@
 				CBAEE46B2795AFAC003E5FA3 /* Info.plist */,
 			);
 			path = Root;
-			sourceTree = "<group>";
-		};
-		CB8C4C6127984F2200268420 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CBAEE4512795AFAB003E5FA3 = {
@@ -277,7 +276,6 @@
 		CBAEE45C2795AFAB003E5FA3 /* AvailableVehiclesChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				CB8C4C6127984F2200268420 /* Extensions */,
 				CB5F5CEC2797BD890035E6D2 /* Root */,
 				CB5F5CEA2797BD290035E6D2 /* Scenes */,
 				CB5CC13F2797A2AC00C388A7 /* Network */,
@@ -557,7 +555,9 @@
 			files = (
 				CB5CC1432797A8F200C388A7 /* Responses.swift in Sources */,
 				CB5F5CFA2797CC1C0035E6D2 /* MainModel.swift in Sources */,
+				CB5F5D07279914270035E6D2 /* ProgressHUD.swift in Sources */,
 				CBD4E7EF279845EF0008C020 /* BaseModel.swift in Sources */,
+				CB5F5D0927991DB30035E6D2 /* MainSectionController.swift in Sources */,
 				CBAEE4622795AFAB003E5FA3 /* MainViewController.swift in Sources */,
 				CB8C4C652798500F00268420 /* BaseTableViewCell.swift in Sources */,
 				CB5CC1572797BAB900C388A7 /* ObservableType+ObjectMapper.swift in Sources */,

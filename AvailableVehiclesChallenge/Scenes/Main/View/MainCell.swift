@@ -9,10 +9,13 @@ import UIKit
 import SnapKit
 import RxSwift
 
-typealias MainCellData = (title: String?, planet: Planet?, vehicle: Vehicle?)
 
-class MainCell: UITableViewCell {
+protocol MainCellDelegate{
+    func mainCell(_ cell: MainCell, didSelect type: ListType)
+}
 
+class MainCell: UICollectionViewCell {
+    
     private let lblTitle: UILabel = {
         let label = UILabel()
         return label
@@ -29,29 +32,23 @@ class MainCell: UITableViewCell {
         return label
     }()
     
-    let pPlanet = PublishSubject<MainCell>()
-    let pVehicle = PublishSubject<MainCell>()
-    
-    var data: MainCellData?{
-        didSet{
-            guard let data = data
-            else{ return }
-            lblTitle.text = data.title
-            lblPlanet.text = data.planet?.name ?? "Select planet"
-            lblVehicle.text = data.vehicle?.name ?? "Select vehicle"
-        }
+    func binding(title: String?, planet: Planet?, vehicle: Vehicle?){
+        lblTitle.text = title
+        lblPlanet.text = planet?.name ?? "Select planet"
+        lblVehicle.text = vehicle?.name ?? "Select vehicle"
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    var delegate: MainCellDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         contentView.addSubview(lblTitle)
         lblTitle.snp.makeConstraints{
             $0.top.equalToSuperview().offset(16)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().offset(-32)
         }
-
+        
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 16
@@ -68,18 +65,30 @@ class MainCell: UITableViewCell {
         
         lblPlanet.add(target: self, action: #selector(planetPressed))
         lblVehicle.add(target: self, action: #selector(vehiclePressed))
+        
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var newFrame = layoutAttributes.frame
+        // note: don't change the width
+        newFrame.size.height = ceil(size.height)
+        layoutAttributes.frame = newFrame
+        return layoutAttributes
     }
     
     @IBAction private func planetPressed(){
-        pPlanet.onNext(self)
+        delegate?.mainCell(self, didSelect: .planet)
     }
-
+    
     @IBAction private func vehiclePressed(){
-        pVehicle.onNext(self)
+        delegate?.mainCell(self, didSelect: .vehicle)
     }
     
 }
