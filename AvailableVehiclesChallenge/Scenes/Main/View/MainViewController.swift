@@ -35,7 +35,6 @@ class MainViewController: BaseViewController {
     
     private let lblTime: UILabel = {
         let label = UILabel()
-        label.text = "Time taken: 0"
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -47,15 +46,26 @@ class MainViewController: BaseViewController {
         return button
     }()
     
-    var dataSource = [Destination]()
-    
     private lazy var mainViewModel: MainViewModel = {
         return MainViewModel()
     }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        setupView()
+        setupSubscriber()
+        mainViewModel.initializeData()
+        loadingResources()
+        
+    }
+    
+    private func setupView(){
         view.addSubview(lblTitle)
         lblTitle.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
@@ -68,9 +78,11 @@ class MainViewController: BaseViewController {
             $0.top.equalTo(lblTitle.snp.bottom).offset(16)
             $0.centerX.width.equalTo(lblTitle)
         }
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
         
         let viewContainer = UIView()
-        viewContainer.backgroundColor = .yellow
+        viewContainer.backgroundColor = .darkGray
 
         viewContainer.addSubview(lblTime)
         lblTime.snp.makeConstraints{
@@ -99,15 +111,15 @@ class MainViewController: BaseViewController {
         
         let rightBarBtn = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetPressed))
         self.navigationItem.rightBarButtonItem = rightBarBtn
-
-        adapter.collectionView = collectionView
-        adapter.dataSource = self
-
+    }
+    
+    func setupSubscriber(){
         mainViewModel.obsDataSourceChanged
             .asObserver()
             .subscribe(onNext: { [weak self] datasource in
-                self?.dataSource = datasource
                 self?.adapter.performUpdates(animated: true, completion: nil)
+            }, onError:{ error in
+                print(error.localizedDescription)
             })
             .disposed(by: disposeBag)
         
@@ -117,14 +129,9 @@ class MainViewController: BaseViewController {
                 self?.lblTime.text = String(format: "Time taken: %i", time)
             })
             .disposed(by: disposeBag)
-        
-        mainViewModel.initializeData()
-        
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func loadingResources(){
         ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.show(interaction: false)
         mainViewModel.loadingResources()
@@ -135,14 +142,15 @@ class MainViewController: BaseViewController {
             ProgressHUD.showFailed(error.localizedDescription)
         })
         .disposed(by: disposeBag)
-        
-        
     }
     
     @IBAction private func resetPressed(){
         mainViewModel.reset()  
     }
 
+    @IBAction private func findPressed(){
+        
+    }
 }
 
 private extension MainViewController{
@@ -153,7 +161,7 @@ extension MainViewController: ListAdapterDataSource{
 
     // MARK: ListAdapterDataSource
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return dataSource as [ListDiffable]
+        return mainViewModel.detinations as [ListDiffable]
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

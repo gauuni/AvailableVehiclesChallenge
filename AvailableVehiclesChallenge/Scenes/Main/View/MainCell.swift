@@ -18,6 +18,7 @@ class MainCell: UICollectionViewCell {
     
     private let lblTitle: UILabel = {
         let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     

@@ -6,30 +6,36 @@
 //
 
 import Foundation
-import IGListDiffKit
-
-class Destination: ListDiffable{
-    var timestamp = Int(Date().timeIntervalSince1970)
-    var id: Int = -1
-    var planet: Planet?
-    var vehicle: Vehicle?
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return id as NSNumber
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let object = object as? Destination else { return false }
-        return self.timestamp == object.timestamp &&
-        self.id == object.id
-        
-    }
-    
-}
 
 class MainModel: BaseModel{
     
     var planets: [Planet]!
     var vehicles: [Vehicle]!
     var destinations = [Destination]()
+    
+    func resetIdenticalPlanet(_ planet: Planet){
+        let idx = destinations.firstIndex{ $0.planet == planet }
+        guard let idx = idx
+        else{ return }
+        
+        destinations[idx].planet = nil
+    }
+    
+    func updateUnits(_ selectedVehicle: Vehicle, at index: Int){
+        let destination = destinations[index]
+    
+        // restore units for prev vehicle
+        if let prevVehicle = destination.vehicle,
+           let idx = vehicles.firstIndex(where: { $0 == prevVehicle }){
+            let vehicle = vehicles[idx]
+            vehicle.units += 1
+        }
+        
+        // update units selected vehicle
+        if let idx = vehicles.firstIndex(where: { $0 == selectedVehicle }){
+            let vehicle = vehicles[idx]
+            if vehicle.units == 0{ return }
+            vehicle.units -= 1
+        }
+    }
 }

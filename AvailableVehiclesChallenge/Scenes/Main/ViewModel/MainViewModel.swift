@@ -14,7 +14,7 @@ enum ListType{
 }
 
 class MainViewModel: BaseViewModel{
-    private let numberOfPlanets = 4
+    private let numberOfPlanets = 100
    
     var vehicles: [Vehicle]{
         return model.vehicles
@@ -25,7 +25,12 @@ class MainViewModel: BaseViewModel{
     }
     
     var detinations: [Destination]{
-        return model.destinations
+        get{
+            return model.destinations
+        }
+        set{
+            model.destinations = newValue
+        }
     }
     
     var obsTimeChange = PublishSubject<Int>()
@@ -46,7 +51,8 @@ class MainViewModel: BaseViewModel{
             item.id = idx+1
             model.destinations.append(item)
         }
-        obsDataSourceChanged.onNext(model.destinations)
+        obsDataSourceChanged.onNext([])
+        obsTimeChange.onNext(0)
     }
     
     func loadingResources() -> Observable<Void>{
@@ -62,53 +68,63 @@ class MainViewModel: BaseViewModel{
             })
             .map{ _ in }
         
-        return Observable.merge(obsPlanets, obsVehicles)
+        return Observable.zip(obsPlanets, obsVehicles){ _, _ in }
+
     }
     
-    func update(item: Any, at index: Int){
-
+    func update(item: Any, at index: Int) {
         let destination = model.destinations[index]
-
-        if let item = item as? Planet{
-            // Check if any planet has been chosen
-            if let idx = model.destinations
-                .firstIndex(where: { $0.planet?.name == item.name }){
-                model.destinations[idx].planet = nil
-            }
-                
-            destination.planet = item
-        }
-        
-        if let item = item as? Vehicle{
-            // restore units for prev vehicle
-            if let prevVehicle = destination.vehicle,
-               let idx = model.vehicles.firstIndex(where: { $0.name == prevVehicle.name }){
-                model.vehicles[idx].units += 1
-            }
-            
-            // update units selected vehicle
-            if let idx = model.vehicles.firstIndex(where: { $0.name == item.name }){
-                model.vehicles[idx].units -= 1
-            }
-        
-            destination.vehicle = item
-
-        }
-        
-     
         let newDestination = Destination()
         newDestination.id = destination.id
         newDestination.planet = destination.planet
         newDestination.vehicle = destination.vehicle
         
-        model.destinations[index] = newDestination
-        obsDataSourceChanged.onNext(model.destinations)
+        var isSuccess = false
+        if let item = item as? Planet{
+            // Reset if same planet has been chosen
+            isSuccess = destination.canSelect(planet: item)
+            if isSuccess{
+                model.resetIdenticalPlanet(item)
+                newDestination.planet = item
+            }else{
+                if let vehicle = destination.vehicle{
+                    obsDataSourceChanged.onError(NKError.cannotReach(planet: item, vehicle: vehicle))
+                    return
+                }
+            }
+        }
         
-        let totalTime = model.destinations
-            .filter{ $0.vehicle != nil && $0.planet != nil }
-            .map{ $0.planet!.distance / $0.vehicle!.speed }
-            .reduce(0, +)
-        obsTimeChange.onNext(totalTime)
+        if let item = item as? Vehicle{
+            isSuccess = destination.canSelect(vehicle: item)
+            if isSuccess{
+                model.updateUnits(item, at: index)
+                newDestination.vehicle = item
+            }else{
+                if let planet = destination.planet{
+                    obsDataSourceChanged.onError(NKError.cannotReach(planet: planet, vehicle: item))
+                    return
+                }
+                
+            }
+        }
+
+      
+            model.destinations[index] = newDestination
+            obsDataSourceChanged.onNext([])
+            
+            let totalTime = model.destinations
+                .map{ $0.takenTime }
+                .reduce(0, +)
+            obsTimeChange.onNext(totalTime)
+        
+    }
+    
+    func update(vehicle: Vehicle){
+        
+    }
+    
+    func update(planet: Planet){
+        
     }
     
     func reset(){

@@ -16,11 +16,7 @@ class PanViewController: UITableViewController, PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(300)
-    }
-
-    var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(40)
+        return .contentHeight(UIScreen.height/3)
     }
     
     var items: [Any]!
@@ -30,6 +26,7 @@ class PanViewController: UITableViewController, PanModalPresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.tableFooterView = UIView(frame: .zero)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -50,7 +47,7 @@ class PanViewController: UITableViewController, PanModalPresentable {
         if cell == nil{
             cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
         }
-
+        
         cell?.accessoryType = .none
         
         if let item = items[indexPath.row] as? Planet{
@@ -71,13 +68,22 @@ class PanViewController: UITableViewController, PanModalPresentable {
                 item.name == vehicle.name{
                 cell?.accessoryType = .checkmark
             }
+            if item.units == 0{
+                cell?.contentView.alpha = 0.5
+            }
         }
+        
+
         
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if let item = items[indexPath.row] as? Vehicle,
+           item.units == 0{
+            return
+        }
         let item = items[indexPath.row]
         pSelected.onNext(item)
         pSelected.onCompleted()

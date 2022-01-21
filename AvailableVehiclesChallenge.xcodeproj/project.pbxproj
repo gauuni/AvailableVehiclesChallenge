@@ -35,6 +35,10 @@
 		CBD4E7EF279845EF0008C020 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4E7EE279845EF0008C020 /* BaseModel.swift */; };
 		CBD4E7F1279845FE0008C020 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4E7F0279845FE0008C020 /* BaseViewModel.swift */; };
 		CBD4E7F327984A140008C020 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4E7F227984A140008C020 /* MainCell.swift */; };
+		CBD94D0B279AA51C0068E56E /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD94D0A279AA51C0068E56E /* Planet.swift */; };
+		CBD94D0D279AA5300068E56E /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD94D0C279AA5300068E56E /* Vehicle.swift */; };
+		CBD94D0F279AA5580068E56E /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD94D0E279AA5580068E56E /* Destination.swift */; };
+		CBD94D11279AB1BC0068E56E /* NKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD94D10279AB1BC0068E56E /* NKError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +98,10 @@
 		CBD4E7EE279845EF0008C020 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		CBD4E7F0279845FE0008C020 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		CBD4E7F227984A140008C020 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
+		CBD94D0A279AA51C0068E56E /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
+		CBD94D0C279AA5300068E56E /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		CBD94D0E279AA5580068E56E /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
+		CBD94D10279AB1BC0068E56E /* NKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NKError.swift; sourceTree = "<group>"; };
 		FAA6C130195343EDE238DFCF /* Pods-AvailableVehiclesChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvailableVehiclesChallengeTests.release.xcconfig"; path = "Target Support Files/Pods-AvailableVehiclesChallengeTests/Pods-AvailableVehiclesChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,7 +223,11 @@
 		CB5F5CE92797BD160035E6D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CBD94D0A279AA51C0068E56E /* Planet.swift */,
+				CBD94D0C279AA5300068E56E /* Vehicle.swift */,
+				CBD94D0E279AA5580068E56E /* Destination.swift */,
 				CB5F5CF92797CC1C0035E6D2 /* MainModel.swift */,
+				CBD94D10279AB1BC0068E56E /* NKError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -561,8 +573,11 @@
 				CBAEE4622795AFAB003E5FA3 /* MainViewController.swift in Sources */,
 				CB8C4C652798500F00268420 /* BaseTableViewCell.swift in Sources */,
 				CB5CC1572797BAB900C388A7 /* ObservableType+ObjectMapper.swift in Sources */,
+				CBD94D0D279AA5300068E56E /* Vehicle.swift in Sources */,
 				CB5CC1562797BAB900C388A7 /* Response+ObjectMapper.swift in Sources */,
 				CBAEE45E2795AFAB003E5FA3 /* AppDelegate.swift in Sources */,
+				CBD94D11279AB1BC0068E56E /* NKError.swift in Sources */,
+				CBD94D0F279AA5580068E56E /* Destination.swift in Sources */,
 				CBAEE4602795AFAB003E5FA3 /* SceneDelegate.swift in Sources */,
 				CBAEE4972795B470003E5FA3 /* BaseNavigationController.swift in Sources */,
 				CB8C4C67279861C000268420 /* PanViewController.swift in Sources */,
@@ -571,6 +586,7 @@
 				CBD4E7F1279845FE0008C020 /* BaseViewModel.swift in Sources */,
 				CB5CC1412797A2C400C388A7 /* APIClient.swift in Sources */,
 				CBAEE49F2795B47D003E5FA3 /* BaseViewController.swift in Sources */,
+				CBD94D0B279AA51C0068E56E /* Planet.swift in Sources */,
 				CBD4E7F327984A140008C020 /* MainCell.swift in Sources */,
 				CB5F5CF82797CC120035E6D2 /* MainViewModel.swift in Sources */,
 			);
