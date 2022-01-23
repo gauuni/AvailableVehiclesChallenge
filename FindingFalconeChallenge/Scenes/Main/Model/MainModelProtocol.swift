@@ -17,6 +17,8 @@ protocol MainModelProtocol: BaseModelProtocol{
     var takenTime: Int { get }
     func resetDestinations()
     func initializeDestinations()
+    var isValidNumberOfPlanets: Bool{ get }
+    var isValidNumberOfVehicles: Bool{ get }
     @discardableResult func update(planet: Planet, at index: Int) -> FFError?
     @discardableResult func update(vehicle: Vehicle, at index: Int) -> FFError?
 }

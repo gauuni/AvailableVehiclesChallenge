@@ -12,8 +12,10 @@ protocol MainViewModelProtocol: BaseViewModelProtocol{
     
     var vehicles: [Vehicle]{ get }
     var planets: [Planet]{ get }
-    var detinations: [Destination]{ get }
+    var destinations: [Destination]{ get }
     
+    
+        
     var obsTimeChange: PublishSubject<Int> { get }
     var obsDataSourceChanged: PublishSubject<Result<Bool, FFError>> { get }
     

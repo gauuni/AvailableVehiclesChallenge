@@ -7,7 +7,7 @@
 
 import Foundation
 
-fileprivate let NUMBER_OF_PLANETS = 4
+fileprivate let NUMBER_OF_DESTINATIONS = 4
 
 class MainModel: BaseModel, MainModelProtocol{
     
@@ -25,6 +25,23 @@ class MainModel: BaseModel, MainModelProtocol{
     
     func set(destinations: [Destination]){
         self.destinations = destinations
+    }
+    
+    var isValidNumberOfPlanets: Bool{
+        let numberOfPlanets = destinations
+            .filter{ $0.planet != nil }
+            .map{ $0.planet! }
+            .count
+        return numberOfPlanets == NUMBER_OF_DESTINATIONS
+    }
+    
+    var isValidNumberOfVehicles: Bool{
+        let numberOfVeicles = destinations
+            .filter{ $0.vehicle != nil }
+            .map{ $0.vehicle! }
+            .count
+        
+        return numberOfVeicles == NUMBER_OF_DESTINATIONS
     }
     
     var takenTime: Int{
@@ -118,7 +135,7 @@ class MainModel: BaseModel, MainModelProtocol{
     }
     
     func initializeDestinations(){
-        for idx in 0..<NUMBER_OF_PLANETS{
+        for idx in 0..<NUMBER_OF_DESTINATIONS{
             let item = Destination()
             item.id = idx+1
             destinations.append(item)

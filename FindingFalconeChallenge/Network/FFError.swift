@@ -10,6 +10,8 @@ import Foundation
 enum FFError: Error, LocalizedError, Equatable{
     case identical(vehicle: Vehicle)
     case unreachable(planet: Planet, vehicle: Vehicle)
+    case noOfPlanets
+    case noOfVehicle
     
     var errorDescription: String?{
         switch self {
@@ -23,6 +25,10 @@ enum FFError: Error, LocalizedError, Equatable{
             }
             let string = String(format: "%@ cannot reach planet %@", vehicleName, planetName)
             return string
+        case .noOfPlanets:
+            return "Must have 4 of planets"
+        case .noOfVehicle:
+            return "Must have 4 of vehicles"
         }
     }
     

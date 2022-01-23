@@ -39,12 +39,15 @@ class MainViewController: BaseViewController {
         let label = UILabel()
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.textColor = .white
         return label
     }()
     
     private let btnFind: UIButton = {
         let button = UIButton()
         button.setTitle("Find Falcone", for: .normal)
+        button.setBorder(borderWidth: 1, borderColor: .white, cornerRadius: 8)
         return button
     }()
     
@@ -96,32 +99,23 @@ class MainViewController: BaseViewController {
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
-        let viewContainer = UIView()
-        viewContainer.backgroundColor = .darkGray
-
-        viewContainer.addSubview(lblTime)
+        view.addSubview(lblTime)
         lblTime.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(16)
+            $0.top.equalTo(collectionView.snp.bottom).offset(-32)
             $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().offset(-32)
+            $0.width.equalToSuperview().offset(-64)
         }
         
         btnFind.addTarget(self, action: #selector(findPressed), for: .touchUpInside)
-        viewContainer.addSubview(btnFind)
+        view.addSubview(btnFind)
         btnFind.snp.makeConstraints{
-            $0.top.equalTo(lblTime.snp.bottom).offset(8)
+            $0.top.equalTo(lblTime.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
-            $0.width.greaterThanOrEqualTo(120)
+            $0.width.greaterThanOrEqualTo(180)
             $0.height.equalTo(50)
-            $0.bottom.greaterThanOrEqualToSuperview().offset(-32)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-64)
         }
-        
-        view.addSubview(viewContainer)
-        viewContainer.snp.makeConstraints{
-            $0.top.equalTo(collectionView.snp.bottom).offset(16)
-            $0.centerX.width.equalToSuperview()
-            $0.bottom.equalToSuperview()
-        }
+
         
         self.title = "Finding Falcone!"
         
@@ -215,13 +209,13 @@ extension MainViewController: ListAdapterDataSource{
 
     // MARK: ListAdapterDataSource
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return (mainViewModel?.detinations ?? []) as [ListDiffable]
+        return (mainViewModel?.destinations ?? []) as [ListDiffable]
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         
         let sectionController = MainSectionController()
-//        sectionController.delegate = self
+        sectionController.delegate = self
         return sectionController
         
     }
@@ -249,10 +243,10 @@ extension MainViewController: MainSectionControllerDelegate{
         
         switch type{
         case .vehicle:
-            vc.selectedItem = viewModel.detinations[index].vehicle
+            vc.selectedItem = viewModel.destinations[index].vehicle
             vc.items = viewModel.vehicles
         case .planet:
-            vc.selectedItem = viewModel.detinations[index].planet
+            vc.selectedItem = viewModel.destinations[index].planet
             vc.items = viewModel.planets
         }
 

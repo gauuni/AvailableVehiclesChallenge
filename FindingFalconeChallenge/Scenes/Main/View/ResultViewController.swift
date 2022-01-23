@@ -59,7 +59,7 @@ class ResultViewController: BaseViewController {
         view.addSubview(lblResult)
         lblResult.snp.makeConstraints{
             $0.center.equalToSuperview()
-            $0.width.equalToSuperview().offset(-32)
+            $0.width.equalToSuperview().offset(64)
 //            $0.height.lessThanOrEqualToSuperview().multipliedBy(0.8)
         }
         

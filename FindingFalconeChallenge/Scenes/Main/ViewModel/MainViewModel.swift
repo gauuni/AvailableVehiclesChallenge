@@ -25,9 +25,10 @@ class MainViewModel: BaseViewModel, MainViewModelProtocol{
         return mainModel.planets
     }
     
-    var detinations: [Destination]{
+    var destinations: [Destination]{
         return mainModel.destinations
     }
+    
     
     var obsTimeChange = PublishSubject<Int>()
     var obsDataSourceChanged = PublishSubject<Result<Bool, FFError>>()
@@ -88,14 +89,22 @@ class MainViewModel: BaseViewModel, MainViewModelProtocol{
     }
 
     func findFalcone() -> Observable<FindResult>{
+        if !mainModel.isValidNumberOfPlanets{
+            return Observable.error(FFError.noOfPlanets)
+        }
+        
+        if !mainModel.isValidNumberOfVehicles{
+            return Observable.error(FFError.noOfVehicle)
+        }
+        
         let obsToken = network.client.fetchToken()
-            .map{ [detinations] res -> FindParam in
+            .map{ [destinations] res -> FindParam in
                 var param = FindParam()
                 param.token = res.token
-                param.planets = detinations
+                param.planets = destinations
                     .filter{ $0.planet != nil }
                 .map{ $0.planet! }
-                param.vehicles = detinations
+                param.vehicles = destinations
                     .filter{ $0.vehicle != nil }
                 .map{ $0.vehicle! }
                 return param

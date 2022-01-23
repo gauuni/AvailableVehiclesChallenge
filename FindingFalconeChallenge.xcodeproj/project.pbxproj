@@ -46,7 +46,6 @@
 		CBADD72E279D893E00BDD03B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADD72D279D893E00BDD03B /* NetworkManager.swift */; };
 		CBADD730279D975600BDD03B /* FFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADD72F279D975600BDD03B /* FFError.swift */; };
 		CBADD732279DA00400BDD03B /* MainModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADD731279DA00400BDD03B /* MainModelTests.swift */; };
-		CBADD734279DAC4C00BDD03B /* MainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADD733279DAC4C00BDD03B /* MainDataSource.swift */; };
 		CBADD736279DB1D400BDD03B /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBADD735279DB1D400BDD03B /* MainViewControllerTests.swift */; };
 		CBAEE4752795AFAD003E5FA3 /* FindingFalconeChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAEE4742795AFAD003E5FA3 /* FindingFalconeChallengeTests.swift */; };
 		ECA627398D56DA4ACC9B844C /* Pods_FindingFalconeChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82172F5D1544C673D1BDE859 /* Pods_FindingFalconeChallengeTests.framework */; };
@@ -115,7 +114,6 @@
 		CBADD72D279D893E00BDD03B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CBADD72F279D975600BDD03B /* FFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFError.swift; sourceTree = "<group>"; };
 		CBADD731279DA00400BDD03B /* MainModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModelTests.swift; sourceTree = "<group>"; };
-		CBADD733279DAC4C00BDD03B /* MainDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataSource.swift; sourceTree = "<group>"; };
 		CBADD735279DB1D400BDD03B /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		CBAEE45A2795AFAB003E5FA3 /* FindingFalconeChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindingFalconeChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBAEE4702795AFAD003E5FA3 /* FindingFalconeChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindingFalconeChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,7 +236,6 @@
 				CB77263A279B9C58005DCD46 /* PanViewController.swift */,
 				CB77263B279B9C58005DCD46 /* MainCell.swift */,
 				CB77267C279B9F72005DCD46 /* ResultViewController.swift */,
-				CBADD733279DAC4C00BDD03B /* MainDataSource.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -635,7 +632,6 @@
 				CB77265C279B9C58005DCD46 /* MainViewModel.swift in Sources */,
 				CB77266C279B9C58005DCD46 /* BaseViewController.swift in Sources */,
 				CB77266F279B9C58005DCD46 /* BaseModel.swift in Sources */,
-				CBADD734279DAC4C00BDD03B /* MainDataSource.swift in Sources */,
 				CB772664279B9C58005DCD46 /* MainCell.swift in Sources */,
 				CBADD730279D975600BDD03B /* FFError.swift in Sources */,
 				CB772666279B9C58005DCD46 /* Responses.swift in Sources */,
