@@ -42,30 +42,5 @@ class Destination: ListDiffable, Equatable{
         lhs.planet == rhs.planet &&
         lhs.vehicle == rhs.vehicle
     }
-    
-    func canSelect(planet: Planet) -> Bool{
-        guard let vehicle = vehicle
-        else{ return true }
-        
-        if planet.distance > vehicle.maxDistance{
-            return false
-        }
-        
-        return true
-    }
- 
-    func canSelect(vehicle: Vehicle) -> Bool{
-        if vehicle == self.vehicle{
-            return false
-        }
-        
-        guard let planet = planet
-        else{ return true }
-        
-        if planet.distance > vehicle.maxDistance{
-            return false
-        }
-        
-        return true
-    }
+
 }

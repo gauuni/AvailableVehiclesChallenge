@@ -8,7 +8,7 @@
 import ObjectMapper
 import IGListDiffKit
 
-class Planet: BaseResponse, ListDiffable, Equatable{
+class Planet: BaseResponse, ListDiffable{
     var name: String?
     var distance = 0
     

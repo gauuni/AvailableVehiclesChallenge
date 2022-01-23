@@ -11,5 +11,11 @@ import RxSwift
 class BaseViewModel{
     let disposeBag = DisposeBag()
     
-    public let network = APIClient()
+    var model: BaseModelProtocol?
+    var network = NetworkManager()
+    
+    init(model: BaseModelProtocol){
+        self.model = model
+    }
+    
 }

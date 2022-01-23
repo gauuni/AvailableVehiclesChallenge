@@ -9,10 +9,16 @@
 import ObjectMapper
 import IGListDiffKit
 
-class BaseResponse: Mappable{
+class BaseResponse: NSObject, Mappable{
     var error: String?
     
-    required init?(map: Map) { }
+    override init() {
+        super.init()
+    }
+
+    convenience required init?(map: Map) {
+        self.init()
+    }
     
     func mapping(map: Map) {
         error <- map["error"]

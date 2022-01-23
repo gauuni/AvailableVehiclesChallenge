@@ -11,6 +11,7 @@ import SnapKit
 import SwiftyExtension
 import PanModal
 import IGListKit
+import PopupDialog
 
 class MainViewController: BaseViewController {
 
@@ -27,7 +28,7 @@ class MainViewController: BaseViewController {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 5)
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
@@ -54,9 +55,9 @@ class MainViewController: BaseViewController {
         return imgView
     }()
     
-    private lazy var mainViewModel: MainViewModel = {
-        return MainViewModel()
-    }()
+    private var mainViewModel: MainViewModelProtocol?{
+        return self.viewModel as? MainViewModelProtocol
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,7 +70,7 @@ class MainViewController: BaseViewController {
         
         setupView()
         setupSubscriber()
-        mainViewModel.initializeData()
+        mainViewModel?.initializeData()
         loadingResources()
         
     }
@@ -131,24 +132,28 @@ class MainViewController: BaseViewController {
     }
     
     func setupSubscriber(){
-        mainViewModel.obsDataSourceChanged
+        guard let viewModel = mainViewModel else {
+            return
+        }
+
+        viewModel.obsDataSourceChanged
             .asObserver()
-            .subscribe(onNext: { [weak self] noti in
-                if !noti.isSuccess{
-                    guard let planet = noti.planet,
-                          let planetName = planet.name,
-                          let vehicle = noti.vehicle,
-                          let vehicleName = vehicle.name
-                    else{ return }
-                    let string = String(format: "%@ cannot reach planet %@", vehicleName, planetName)
-                    print(string)
-                    return 
+            .subscribe(onNext: { [weak self] result in
+                switch result{
+                case .success(_):
+                    self?.adapter.performUpdates(animated: true, completion: nil)
+                case .failure(let error):
+                    switch error{
+                    case .unreachable:
+                        ProgressHUD.showFailed(error.errorDescription)
+                    default:
+                        break
+                    }
                 }
-                self?.adapter.performUpdates(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         
-        mainViewModel.obsTimeChange
+        viewModel.obsTimeChange
             .asObserver()
             .subscribe(onNext: { [weak self] time in
                 self?.lblTime.text = String(format: "Time taken: %i", time)
@@ -157,9 +162,13 @@ class MainViewController: BaseViewController {
     }
     
     func loadingResources(){
+        guard let viewModel = mainViewModel else {
+            return
+        }
+        
         ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.show("Loading resources...", interaction: false)
-        mainViewModel.loadingResources()
+        viewModel.loadingResources()
         .observe(on: MainScheduler.instance)
         .subscribe(onNext: {
             ProgressHUD.dismiss()
@@ -170,19 +179,22 @@ class MainViewController: BaseViewController {
     }
     
     @IBAction private func resetPressed(){
-        mainViewModel.reset()  
+        mainViewModel?.reset()
     }
 
     @IBAction private func findPressed(){
+        guard let viewModel = mainViewModel else {
+            return
+        }
+        
         ProgressHUD.show(interaction: false)
         
-        let obsFind = mainViewModel.findFalcone()
+        let obsFind = viewModel.findFalcone()
             obsFind
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: presentResult,
             onError: { error in
-                ProgressHUD.dismiss()
-                print(error.localizedDescription)
+                ProgressHUD.showError(error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }
@@ -199,21 +211,17 @@ class MainViewController: BaseViewController {
     }
 }
 
-private extension MainViewController{
-    
-}
-
 extension MainViewController: ListAdapterDataSource{
 
     // MARK: ListAdapterDataSource
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return mainViewModel.detinations as [ListDiffable]
+        return (mainViewModel?.detinations ?? []) as [ListDiffable]
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         
         let sectionController = MainSectionController()
-        sectionController.delegate = self
+//        sectionController.delegate = self
         return sectionController
         
     }
@@ -224,6 +232,8 @@ extension MainViewController: ListAdapterDataSource{
     
 }
 
+
+
 extension MainViewController: MainSectionControllerDelegate{
     func mainSectionController(_ sectionController: MainSectionController, didSelect type: ListType) {
         let section = adapter.section(for: sectionController)
@@ -231,24 +241,28 @@ extension MainViewController: MainSectionControllerDelegate{
     }
     
     func presentList(type: ListType, at index: Int){
+        guard let viewModel = mainViewModel else {
+            return
+        }
+        
         let vc = PanViewController()
         
         switch type{
         case .vehicle:
-            vc.selectedItem = mainViewModel.detinations[index].vehicle
-            vc.items = mainViewModel.vehicles
+            vc.selectedItem = viewModel.detinations[index].vehicle
+            vc.items = viewModel.vehicles
         case .planet:
-            vc.selectedItem = mainViewModel.detinations[index].planet
-            vc.items = mainViewModel.planets
+            vc.selectedItem = viewModel.detinations[index].planet
+            vc.items = viewModel.planets
         }
 
         vc.pSelected.asObserver()
-            .subscribe(onNext: { [weak self] item in
+            .subscribe(onNext: { item in
                 guard let item = item
                 else{
                     return
                 }
-                self?.mainViewModel.update(item: item, at: index)
+                viewModel.update(item: item, at: index)
             })
             .disposed(by: vc.disposeBag)
         self.presentPanModal(vc)

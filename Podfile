@@ -12,6 +12,7 @@ target 'FindingFalconeChallenge' do
   pod 'SwiftyExtension'
   pod 'PanModal'
   pod 'IGListKit'
+  pod 'PopupDialog'
   
   target 'FindingFalconeChallengeTests' do
     inherit! :search_paths

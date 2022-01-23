@@ -8,12 +8,13 @@
 import ObjectMapper
 import IGListDiffKit
 
-class Vehicle: BaseResponse, Equatable{
+class Vehicle: BaseResponse{
     
     var name: String?
     var units: Int = 0
     var maxDistance = 0
     var speed = 0
+
     
     override func mapping(map: Map) {
         super.mapping(map: map)

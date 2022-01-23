@@ -12,7 +12,7 @@
         <!--Root Navigation Controller-->
         <scene sceneID="JsB-nD-qbv">
             <objects>
-                <navigationController id="DFX-Mg-AQE" customClass="RootNavigationController" customModule="AvailableVehiclesChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="DFX-Mg-AQE" customClass="RootNavigationController" customModule="FindingFalconeChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bNO-8f-9I5">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -28,7 +28,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="AvailableVehiclesChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="BYZ-38-t0r" customClass="MainViewController" customModule="FindingFalconeChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

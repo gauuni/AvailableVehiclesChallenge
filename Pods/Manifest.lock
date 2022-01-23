@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.4.4)
+  - DynamicBlurView (4.1.0)
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
@@ -10,6 +11,8 @@ PODS:
     - RxSwift (~> 6.0)
   - ObjectMapper (4.2.0)
   - PanModal (1.2.7)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
   - RxSwift (6.2.0)
   - SnapKit (5.0.1)
   - SwiftyExtension (1.3.0)
@@ -19,32 +22,37 @@ DEPENDENCIES:
   - Moya/RxSwift
   - ObjectMapper
   - PanModal
+  - PopupDialog
   - SnapKit
   - SwiftyExtension
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - DynamicBlurView
     - IGListDiffKit
     - IGListKit
     - Moya
     - ObjectMapper
     - PanModal
+    - PopupDialog
     - RxSwift
     - SnapKit
     - SwiftyExtension
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyExtension: 2b730502f7d16d07685e2a276081bf507b2e585c
 
-PODFILE CHECKSUM: 0d044bcfb496503751f82b35dcfb4c1ba3d4d5ac
+PODFILE CHECKSUM: c7683fde17ff70efcfa8d1346fb2052ffc6564da
 
 COCOAPODS: 1.10.1
